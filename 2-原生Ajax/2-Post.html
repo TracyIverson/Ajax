@@ -27,7 +27,7 @@
             //1.创建对象
             const xhr = new XMLHttpRequest();
             //2.初始化，设置请求类型和url
-            xhr.open("GET", "http://127.0.0.1:8000/server?a=10&b=20");
+            xhr.open("POST", "http://127.0.0.1:8000/server?a=10&b=20");
             //3.发送请求
             xhr.send();
             //4.事件绑定，处理服务端返回的结果
@@ -36,10 +36,6 @@
                 if (xhr.readyState === 4) {
                     //响应成功状态码2xx,
                     if (xhr.status >= 200 && xhr.status < 300) {
-                        // console.log(xhr,status);//状态码
-                        // console.log(xhr.statusText);//状态字符串
-                        // console.log(xhr.getAl1ResponseHeaders());//所有响应头
-                        // console.log(xhr.response);//响应体
                         //设置result的文本
                         result.innerHTML = xhr.response;
                     }
