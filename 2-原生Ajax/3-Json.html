@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post 请求</title>
+    <title>请求JSON数据</title>
     <style>
         #result {
             width: 200px;
@@ -27,7 +27,9 @@
             //1.创建对象
             const xhr = new XMLHttpRequest();
             //2.初始化，设置请求类型和url
-            xhr.open("POST", "http://127.0.0.1:8000/server?a=10&b=20");
+            xhr.open("GET", "http://127.0.0.1:8000/json");
+            //设置返回数据格式,可以自动将JSON字符串转换为对象
+            xhr.responseType = "json";
             //3.发送请求
             xhr.send();
             //4.事件绑定，处理服务端返回的结果
@@ -37,7 +39,7 @@
                     //响应成功状态码2xx,
                     if (xhr.status >= 200 && xhr.status < 300) {
                         //设置result的文本
-                        result.innerHTML = xhr.response;
+                        result.innerHTML = xhr.response.name;
                     }
                 }
             }
