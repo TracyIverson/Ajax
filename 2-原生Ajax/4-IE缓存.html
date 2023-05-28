@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>请求JSON数据</title>
+    <title>IE缓存</title>
     <style>
         #result {
             width: 200px;
@@ -25,15 +25,14 @@
         const btn = document.getElementById("submit");
         btn.onclick = function () {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://127.0.0.1:8000/json");
-            //设置返回数据格式,可以自动将JSON字符串转换为对象
-            xhr.responseType = "json";
+            //在IE中使用Ajax请求，如果重复发送URL，那么会从缓存中获取结果
+            //常用的解决方案是使用时间戳
+            xhr.open("GET", "http://127.0.0.1:8000/ie?t=" + Date.now());
             xhr.send();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
                     if (xhr.status >= 200 && xhr.status < 300) {
-                        //设置result的文本
-                        result.innerHTML = xhr.response.name;
+                        result.innerHTML = xhr.response;
                     }
                 }
             }

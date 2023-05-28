@@ -36,6 +36,15 @@ app.all('/json', (request, response) => {
     //设置响应
     response.send(jsonStr);
 })
+
+//IE缓存
+app.all('/IE', (request, response) => {
+    //设置响应头允许跨域
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    //设置响应
+    response.send("IE-1");
+})
+
 //4.监听端口启动服务
 app.listen(8000, () => {
     console.log("服务已经启动，8000 端口监听中....")
