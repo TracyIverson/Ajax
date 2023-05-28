@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>取消请求</title>
+    <title>重复请求</title>
     <style>
         #result {
             width: 200px;
@@ -18,40 +18,28 @@
 
 <body>
     <button id="submit">发送请求</button>
-    <button id="cancel">取消请求</button>
     <div id="result">
     </div>
     <script>
         let submit = document.getElementById("submit");
-        let cancel = document.getElementById("cancel");
         let xhr = new XMLHttpRequest();
-
+        //判断标识
+        let isSending = false;
         submit.onclick = function () {
+            //如果已经请求，不执行这次请求
+            if (isSending) return;
             xhr.open("GET", "http://127.0.0.1:8000/delay");
-            //设置超时
-            xhr.timeout = 5000;
-            //超过超时时间的回调函数
-            xhr.ontimeout = function () {
-                alert("网络异常，请稍后重试！");
-            }
-            //网络异常回调
-            xhr.onerror = function () {
-                alert("网络已经断开！");
-            }
             xhr.send();
+            isSending = true;
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
+                    isSending = false;
                     if (xhr.status >= 200 && xhr.status < 300) {
                         result.innerHTML = xhr.response;
                     }
                 }
             }
         }
-
-        cancel.onclick = function () {
-            xhr.abort();
-        }
-
     </script>
 </body>
 
