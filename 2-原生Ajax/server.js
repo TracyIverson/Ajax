@@ -45,6 +45,16 @@ app.all('/IE', (request, response) => {
     response.send("IE-1");
 })
 
+//超时与网络异常
+app.all('/delay', (request, response) => {
+    //设置响应头允许跨域
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    //3秒后延迟执行
+    setTimeout(() => {
+        response.send("延迟响应");
+    }, 3000);
+})
+
 //4.监听端口启动服务
 app.listen(8000, () => {
     console.log("服务已经启动，8000 端口监听中....")
