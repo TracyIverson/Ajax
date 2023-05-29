@@ -55,6 +55,41 @@ app.all('/delay', (request, response) => {
     }, 3000);
 })
 
+//j针对 jQuery 服务
+app.all('/jquery-server', (request, response) => {
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    //接收所有请求头参数
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    let student = {
+        name: "Jack",
+        age: 18,
+    }
+    let jsonStr = JSON.stringify(student);
+    response.send(jsonStr);
+})
+
+//针对 axios 服务
+app.all('/axios-server', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    const data = { name: 'Nliverd的AJAX学习笔记' };
+
+    // response.send("Hello jQuery AJAX");
+    response.send(JSON.stringify(data));
+
+});
+
+//针对 fetch 服务
+app.all('/fetch-server', (request, response) => {
+    //设置响应头 设置允许跨域
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', '*');
+    const data = { name: 'Nliverd的AJAX学习笔记' };
+    // response.send("Hello jQuery AJAX");
+    response.send(JSON.stringify(data));
+});
+
 //4.监听端口启动服务
 app.listen(8000, () => {
     console.log("服务已经启动，8000 端口监听中....")
